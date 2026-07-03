@@ -1,9 +1,9 @@
 import { JSX } from "react/jsx-runtime";
 
-export default function Home(): JSX.Element {
+export default function Chat(): JSX.Element {
     return (
         <main className="flex min-h-screen items-center justify-center">
-            Home
+            Chat
         </main>
     );
 }
