@@ -11,4 +11,8 @@ export interface ChatMessage {
   content: string;
 
   createdAt: Date;
+
+  updatedAt?: Date;
+
+  model?: string;
 }
