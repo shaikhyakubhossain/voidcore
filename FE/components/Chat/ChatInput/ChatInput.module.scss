@@ -1,5 +1,5 @@
 .chatInput {
-  padding: 24px 32px;
+  padding: 8px 32px;
 }
 
 .container {
@@ -13,9 +13,9 @@
 
   border-radius: 24px;
 
-  background: var(--surface);
+  background: rgb(19, 19, 19);
 
-  border: 1px solid var(--border-color);
+  border: 1px solid rgb(88, 88, 88);
 
   overflow: hidden;
 }

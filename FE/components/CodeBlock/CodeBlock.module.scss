@@ -1,0 +1,45 @@
+.codeBlock {
+  margin: 1rem 0;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  background: #111;
+}
+
+.header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 10px 14px;
+
+  background: #1d1d1d;
+
+  font-size: .9rem;
+}
+
+.header button {
+  cursor: pointer;
+
+  border: none;
+
+  background: transparent;
+
+  color: inherit;
+}
+
+.codeBlock pre {
+  margin: 0;
+
+  overflow-x: auto;
+}
+
+.codeBlock code {
+  display: block;
+
+  padding: 16px;
+}

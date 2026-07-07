@@ -1,3 +1,4 @@
+import Markdown from "@/components/Markdown/Markdown";
 import styles from "./MessageContent.module.scss";
 import type { MessageRole } from "@/types";
 
@@ -24,7 +25,7 @@ const MessageContent = ({
     }
   `}
 >
-  {content}
+  <Markdown>{content}</Markdown>
 </div>
   );
 };
