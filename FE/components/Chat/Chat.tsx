@@ -21,7 +21,7 @@ const Chat = () => {
 
       <div className={styles.content}>
         {hasMessages ? (
-          <MessageList messages={chat.messages} />
+          <MessageList />
         ) : (
           <>
             <EmptyState />
