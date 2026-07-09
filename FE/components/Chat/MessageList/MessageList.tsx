@@ -12,8 +12,6 @@ const MessageList = () => {
     chat: { messages, loading  },
   } = useChat();
 
-  console.log("MessageList messages:", messages);
-
   return (
     <div className={styles.messageList}>
       {messages.map((message) => (

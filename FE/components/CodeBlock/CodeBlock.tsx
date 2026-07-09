@@ -42,8 +42,10 @@ const CodeBlock = ({ language, code }: CodeBlockProps) => {
           aria-label="Copy code to clipboard"
           onClick={() => copy(code)}
         >
-          <Icon size={16} />
-          <span>{label}</span>
+          <div className={styles.copyButtonContent}>
+            <Icon size={16} />
+            <div>{label}</div>
+          </div>
         </button>
       </div>
 

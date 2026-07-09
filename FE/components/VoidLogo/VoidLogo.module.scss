@@ -1,0 +1,234 @@
+.logo {
+  --size: 120px;
+
+  width: var(--size);
+  aspect-ratio: 1;
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  transition:
+    transform .4s ease,
+    filter .4s ease;
+
+  isolation: isolate;
+}
+
+/* ---------- */
+
+.glow {
+  position: absolute;
+
+  width: 140%;
+  height: 140%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle,
+      rgba(90, 211, 255, .35),
+      rgba(124, 92, 255, .18),
+      transparent 70%);
+
+  filter: blur(25px);
+
+  animation:
+    pulse 6s ease-in-out infinite;
+}
+
+/* ---------- */
+
+.disk {
+  position: absolute;
+
+  width: 95%;
+  height: 95%;
+
+  border-radius: 50%;
+
+  background:
+    conic-gradient(
+      from 0deg,
+      #fefefe,
+      #fffbad,
+      #ffc2b1,
+      #ffefa1,
+      #403841
+    );
+
+  mask:
+    radial-gradient(circle,
+      transparent 67%,
+      black 42%,
+      black 61%,
+      transparent 60%);
+
+  filter:
+    blur(6px)
+    saturate(160%);
+
+  animation:
+    rotate 28s linear infinite;
+}
+
+/* ---------- */
+
+.photonRing {
+  position: absolute;
+
+  width: 46%;
+  height: 46%;
+
+  border-radius: 50%;
+
+  border: 2px solid rgba(255,255,255,.55);
+
+  filter: blur(.5px);
+
+  box-shadow:
+    0 0 8px white,
+    0 0 18px #7c5cff;
+
+  animation:
+    flicker 3s ease-in-out infinite;
+}
+
+/* ---------- */
+
+.core {
+  width: 42%;
+  height: 42%;
+
+  border-radius: 50%;
+
+  background: black;
+
+  box-shadow:
+    inset 0 0 12px rgba(255,255,255,.08),
+    0 0 40px rgba(0,0,0,.9);
+
+  z-index: 3;
+
+  animation:
+    breathe 5s ease-in-out infinite;
+}
+
+/* ---------- */
+
+.particle {
+  position: absolute;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  box-shadow:
+    0 0 10px white;
+}
+
+.p1 {
+  animation: orbit1 6s linear infinite;
+}
+
+.p2 {
+  animation: orbit2 9s linear infinite;
+}
+
+.p3 {
+  animation: orbit3 12s linear infinite;
+}
+
+.p4 {
+  animation: orbit4 16s linear infinite;
+}
+
+/* ---------- */
+
+.logo:hover {
+  transform: scale(1.70);
+
+  filter:
+    brightness(1.15);
+}
+
+.logo:hover .disk {
+  animation-duration: 5s;
+}
+
+.logo:hover .glow {
+  filter: blur(40px);
+}
+
+.logo:hover .core {
+  transform: scale(1.12);
+}
+
+/* ---------- */
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,100% {
+    transform: scale(1);
+    opacity: .65;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes breathe {
+  0%,100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(.96);
+  }
+}
+
+@keyframes flicker {
+  0%,100% {
+    opacity: .5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ---------- */
+
+@keyframes orbit1 {
+  from { transform: rotate(0deg) translateX(calc(var(--size)/2.2)) rotate(0deg);}
+  to   { transform: rotate(360deg) translateX(calc(var(--size)/2.2)) rotate(-360deg);}
+}
+
+@keyframes orbit2 {
+  from { transform: rotate(90deg) translateX(calc(var(--size)/2.8));}
+  to   { transform: rotate(-270deg) translateX(calc(var(--size)/2.8));}
+}
+
+@keyframes orbit3 {
+  from { transform: rotate(180deg) translateX(calc(var(--size)/2.5));}
+  to   { transform: rotate(540deg) translateX(calc(var(--size)/2.5));}
+}
+
+@keyframes orbit4 {
+  from { transform: rotate(270deg) translateX(calc(var(--size)/2.1));}
+  to   { transform: rotate(-90deg) translateX(calc(var(--size)/2.1));}
+}

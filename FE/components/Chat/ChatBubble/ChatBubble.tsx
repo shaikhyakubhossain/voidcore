@@ -24,7 +24,7 @@ const ChatBubble = ({ message }: ChatBubbleProps) => {
       <div className={styles.body}>
         <MessageContent role={message.role} content={message.content} />
 
-        {isAssistant && <MessageActions />}
+        {isAssistant && <MessageActions message={message} />}
       </div>
     </article>
   );

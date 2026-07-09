@@ -8,6 +8,9 @@ interface ChatInputActionsProps {
   disabled?: boolean;
   loading?: boolean;
 
+  isVoiceSupported?: boolean;
+  isListening?: boolean;
+
   onAttach?: () => void;
   onVoice?: () => void;
   onSubmit: () => void;
@@ -19,26 +22,23 @@ const ChatInputActions = ({
   onAttach,
   onVoice,
   onSubmit,
+  isVoiceSupported = true,
+  isListening = false,
 }: ChatInputActionsProps) => {
+
   return (
     <div className={styles.actions}>
       <div className={styles.left}>
-        <AttachmentButton
-          disabled={disabled}
-          onClick={onAttach}
-        />
+        <AttachmentButton disabled={disabled} onClick={onAttach} />
 
         <VoiceButton
-          disabled={disabled}
+          disabled={disabled || loading || !isVoiceSupported}
+          listening={isListening}
           onClick={onVoice}
         />
       </div>
 
-      <SendButton
-        disabled={disabled}
-        loading={loading}
-        onClick={onSubmit}
-      />
+      <SendButton disabled={disabled} loading={loading} onClick={onSubmit} />
     </div>
   );
 };

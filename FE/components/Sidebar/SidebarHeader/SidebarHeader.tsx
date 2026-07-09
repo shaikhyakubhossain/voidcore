@@ -1,18 +1,12 @@
-import Image from "next/image";
 
+import VoidLogo from "@/components/VoidLogo/VoidLogo";
 import styles from "./SidebarHeader.module.scss";
 
 const SidebarHeader = () => {
   return (
     <header className={styles.sidebarHeader}>
       <div className={styles.logo}>
-        <Image
-          src="/images/logo.svg"
-          alt="VoidEngine"
-          width={32}
-          height={32}
-          priority
-        />
+        <VoidLogo size={40} />
       </div>
 
       <div className={styles.content}>
