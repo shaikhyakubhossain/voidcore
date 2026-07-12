@@ -47,10 +47,13 @@ export interface ModelInfo {
   supportsTools: boolean;
 
   contextWindow?: number;
+  outputTokenLimit?: number;
+
+  thinking?: boolean;
 
   recommended?: boolean;
 
-  enabled?: boolean;
+  enabled: boolean;
 }
 
 export interface GenerateOptions {
@@ -62,7 +65,15 @@ export interface GenerateOptions {
 export interface LLMProvider {
   readonly provider: AIProvider;
 
+  readonly displayName: string;
+
   generate(options: GenerateOptions): AsyncGenerator<string>;
 
   listModels(): Promise<ModelInfo[]>;
+}
+
+export interface ProviderModels {
+  provider: AIProvider;
+  displayName: string;
+  models: ModelInfo[];
 }

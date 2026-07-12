@@ -6,6 +6,8 @@ export async function* chat(options: ChatOptions) {
 
   const provider = providerRegistry.get(options.provider);
 
+  const models = await provider.listModels();
+
   const stream = provider.generate({
     userMessage: options.message,
     model: options.model,

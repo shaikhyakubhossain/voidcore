@@ -4,22 +4,18 @@ import type { AIProvider, LLMProvider } from "./types.js";
 class ProviderRegistry {
   private readonly providers = new Map<AIProvider, LLMProvider>();
 
-  constructor() {
-    this.register(new GeminiProvider());
-  }
-
-  register(provider: LLMProvider): void {
+  register(provider: LLMProvider) {
     this.providers.set(provider.provider, provider);
   }
 
   get(provider: AIProvider): LLMProvider {
-    const instance = this.providers.get(provider);
+    const llmProvider = this.providers.get(provider);
 
-    if (!instance) {
+    if (!llmProvider) {
       throw new Error(`Provider "${provider}" is not registered.`);
     }
 
-    return instance;
+    return llmProvider;
   }
 
   getAll(): LLMProvider[] {
