@@ -18,3 +18,11 @@ export const INITIAL_CHAT_STATE: ChatState = {
     error: null,
   },
 };
+
+export const INITIAL_SESSION_STATE = {
+  conversationId: undefined,
+  messages: [],
+  input: "",
+  loading: false,
+  error: null,
+};

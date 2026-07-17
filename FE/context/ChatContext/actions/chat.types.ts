@@ -64,4 +64,6 @@ export interface ChatContextType {
   setSelectedProvider: (provider: string) => void;
 
   setSelectedModel: (model: string) => void;
+
+  startNewChat(): void;
 }

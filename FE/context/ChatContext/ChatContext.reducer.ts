@@ -1,5 +1,6 @@
 import { ChatActionTypes } from "./actions/chat.actions";
 import type { ChatAction, ChatState } from "./actions/chat.types";
+import { INITIAL_SESSION_STATE } from "./ChatContext.constants";
 
 export const chatReducer = (
   state: ChatState,
@@ -39,7 +40,7 @@ export const chatReducer = (
     case ChatActionTypes.CLEAR_CHAT:
       return {
         ...state,
-        messages: [],
+        ...INITIAL_SESSION_STATE,
       };
 
     case ChatActionTypes.UPDATE_MESSAGE_CONTENT:

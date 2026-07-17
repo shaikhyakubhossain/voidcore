@@ -6,12 +6,14 @@ import {
 } from "lucide-react";
 
 import { SidebarNavItem } from "./SidebarNav.types";
+import { NAVIGATION_INTENTS } from "@/constants/navigation";
 
 export const SIDEBAR_NAV_ITEMS: SidebarNavItem[] = [
   {
     id: "new-chat",
     label: "New Chat",
-    href: "/chat",
+    intent: NAVIGATION_INTENTS.NEW_CHAT,
+    href: "/",
     icon: PlusSquare,
   },
   {

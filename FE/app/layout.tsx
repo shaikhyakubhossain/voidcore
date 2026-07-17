@@ -2,6 +2,8 @@ import { metadata } from "@/config/metadata";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.scss";
 import { ChatProvider } from "@/context/ChatContext/ChatContext";
+import VoidBackground from "@/components/VoidBackground";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +27,15 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col"><ChatProvider>
-          {children}
-        </ChatProvider></body>
+      <body className="min-h-full flex flex-col">
+        <VoidBackground />
+        <ChatProvider>
+          <main className="flex min-h-screen w-full items-center">
+          <Sidebar />
+            {children}
+          </main>
+        </ChatProvider>
+      </body>
     </html>
   );
 }

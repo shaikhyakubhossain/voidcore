@@ -2,6 +2,7 @@
 import type { PropsWithChildren } from "react";
 import type { ChatContextType } from "./actions/chat.types";
 import type { ChatMessage } from "@/types";
+import type { StreamEvent } from "@/types/streamEvents";
 import {
   createContext,
   useMemo,
@@ -13,6 +14,8 @@ import { INITIAL_CHAT_STATE } from "./ChatContext.constants";
 import { chatReducer } from "./ChatContext.reducer";
 import { ChatActions } from "./actions/chat.actions";
 import { ChatService, LLMService } from "@/services";
+import { ChatSessionService } from "@/session/ChatSessionService";
+import { NDJSONStreamReader } from "@/services/stream";
 
 const ChatContext = createContext<ChatContextType | null>(null);
 
@@ -51,6 +54,10 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
     dispatch(ChatActions.clearChat());
   }, []);
 
+  const startNewChat = useCallback(() => {
+  clearChat();
+}, [clearChat]);
+
   const sendMessage = useCallback(async () => {
     const trimmedInput = chat.input.trim();
 
@@ -87,20 +94,26 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
         messages: [...chat.messages, userMessage],
       });
 
-      const decoder = new TextDecoder();
+      const stream = new NDJSONStreamReader<StreamEvent>();
 
-      while (true) {
-        const { done, value } = await reader.read();
+      for await (const event of stream.read(reader)) {
+        switch (event.type) {
+          case "text.delta":
+            dispatch(
+              ChatActions.updateMessageContent(
+                assistantMessage.id,
+                event.content,
+              ),
+            );
+            break;
 
-        if (done) {
-          break;
+          case "conversation.created":
+            console.log("Conversation:", event.conversationId);
+            break;
+
+          case "done":
+            break;
         }
-
-        const chunk = decoder.decode(value, {
-          stream: true,
-        });
-
-        dispatch(ChatActions.updateMessageContent(assistantMessage.id, chunk));
       }
     } catch (error) {
       console.error("Error sending message:", error);
@@ -122,7 +135,7 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
     } finally {
       dispatch(ChatActions.setLoading(false));
     }
-  }, [chat]);
+  }, [chat.conversationId, chat.input, chat.llm.selectedModel, chat.llm.selectedProvider, chat.messages]);
 
   const setSelectedProvider = useCallback((provider: string) => {
     dispatch(ChatActions.setSelectedProvider(provider));
@@ -137,6 +150,7 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
       chat,
       setInput,
       sendMessage,
+      startNewChat,
       clearChat,
       setSelectedProvider,
       setSelectedModel,
@@ -145,6 +159,7 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
       chat,
       setInput,
       sendMessage,
+      startNewChat,
       clearChat,
       setSelectedProvider,
       setSelectedModel,
