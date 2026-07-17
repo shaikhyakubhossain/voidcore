@@ -120,3 +120,7 @@ npm run start    # run built server
 - Persist chat history in a database
 - Support additional AI providers
 - Improve conversation search and organization
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
