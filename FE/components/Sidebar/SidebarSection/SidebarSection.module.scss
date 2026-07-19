@@ -1,0 +1,72 @@
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.navItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px 18px;
+
+  border-radius: 14px;
+
+  color: var(--text-secondary);
+
+  text-decoration: none;
+
+  transition: all 0.2s ease;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-primary);
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  svg {
+    flex-shrink: 0;
+  }
+}   
+
+.chevronDown {
+    rotate: 0deg;
+    transition: all 0.2s ease;
+}
+
+.chevronUp {
+    rotate: 180deg;
+    transition: all 0.2s ease;
+}
+
+.active {
+  background: rgba(92, 179, 255, 0.18);
+  color: #7fd5ff;
+    
+  &:hover {
+    background: rgba(92, 179, 255, 0.22);
+  }
+}

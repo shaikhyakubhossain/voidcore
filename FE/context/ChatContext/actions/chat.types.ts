@@ -1,8 +1,9 @@
-import type { ChatMessage } from "@/types";
+import type { ChatMessage, Conversation } from "@/types";
 
 import type {
   addMessage,
   clearChat,
+  setConversation,
   setConversationId,
   setError,
   setInput,
@@ -49,6 +50,7 @@ export type ChatAction =
   | ReturnType<typeof clearChat>
 
   | ReturnType<typeof setConversationId>
+  | ReturnType<typeof setConversation>
 
   | ReturnType<typeof setError>
   | ReturnType<typeof setLLMState>
@@ -64,6 +66,8 @@ export interface ChatContextType {
   sendMessage: () => Promise<void>;
 
   clearChat: () => void;
+
+  loadConversation(conversation: Conversation): void;
 
   setSelectedProvider: (provider: string) => void;
 

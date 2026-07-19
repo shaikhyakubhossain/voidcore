@@ -16,12 +16,12 @@ export const SIDEBAR_NAV_ITEMS: SidebarNavItem[] = [
     href: "/",
     icon: PlusSquare,
   },
-  {
-    id: "history",
-    label: "History",
-    href: "/history",
-    icon: History,
-  },
+  // {
+  //   id: "history",
+  //   label: "History",
+  //   href: "/history",
+  //   icon: History,
+  // },
   {
     id: "templates",
     label: "Templates",

@@ -1,4 +1,4 @@
-import type { ChatMessage, ProviderInfo, ProviderModels } from "@/types";
+import type { ChatMessage, Conversation, ProviderInfo, ProviderModels } from "@/types";
 interface SetLLMStatePayload {
   providers: ProviderInfo[];
 
@@ -18,6 +18,7 @@ export const ChatActionTypes = {
   CLEAR_CHAT: "CLEAR_CHAT",
 
   SET_CONVERSATION_ID: "SET_CONVERSATION_ID",
+  SET_CONVERSATION: "SET_CONVERSATION",
 
   UPDATE_MESSAGE_CONTENT: "UPDATE_MESSAGE_CONTENT",
   SET_LLM_STATE: "SET_LLM_STATE",
@@ -52,6 +53,11 @@ export const clearChat = () => ({
 export const setConversationId = (conversationId: string) => ({
   type: ChatActionTypes.SET_CONVERSATION_ID,
   payload: conversationId,
+});
+
+export const setConversation = (conversation: Conversation) => ({
+  type: ChatActionTypes.SET_CONVERSATION,
+  payload: conversation,
 });
 
 export const setError = (error: string | null) => ({
@@ -90,6 +96,7 @@ export const ChatActions = {
   clearChat,
 
   setConversationId,
+  setConversation,
 
   setError,
   setLLMState,

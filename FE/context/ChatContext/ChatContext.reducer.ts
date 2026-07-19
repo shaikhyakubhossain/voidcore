@@ -49,6 +49,13 @@ export const chatReducer = (
         conversationId: action.payload,
       };
 
+    case ChatActionTypes.SET_CONVERSATION:
+      return {
+        ...state,
+        conversationId: action.payload.id,
+        messages: action.payload.messages,
+      };
+
     case ChatActionTypes.UPDATE_MESSAGE_CONTENT:
       console.log("Reducer:", action.payload.chunk);
       return {

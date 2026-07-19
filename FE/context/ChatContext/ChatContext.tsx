@@ -1,7 +1,7 @@
 "use client";
 import type { PropsWithChildren } from "react";
 import type { ChatContextType } from "./actions/chat.types";
-import type { ChatMessage } from "@/types";
+import type { ChatMessage, Conversation } from "@/types";
 import type { StreamEvent } from "@/types/streamEvents";
 import {
   createContext,
@@ -15,8 +15,8 @@ import { chatReducer } from "./ChatContext.reducer";
 import { ChatActions } from "./actions/chat.actions";
 import { ChatService, ConversationBuilder, LLMService } from "@/services";
 import { NDJSONStreamReader } from "@/services/stream";
-import { DEFAULT_CONVERSATION_TITLE } from "@/constants/conversation";
-import { ConversationStorage } from "@/services/storage/ConversationStorage";
+import { ConversationManager } from "@/services/conversation/ConversationManager";
+import { ConversationTitleService } from "@/services/conversation/ConversationTitleService";
 
 const ChatContext = createContext<ChatContextType | null>(null);
 
@@ -69,7 +69,7 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
     }
     console.log("Current conversation:", chat.conversationId);
     const conversationId = chat.conversationId ?? crypto.randomUUID();
-    const existingConversation = ConversationStorage.load(conversationId);
+    const existingConversation = ConversationManager.get(conversationId);
 
     if (!chat.conversationId) {
       dispatch(ChatActions.setConversationId(conversationId));
@@ -126,7 +126,9 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
           case "done":
             const conversation = ConversationBuilder.build({
               id: conversationId,
-              title: DEFAULT_CONVERSATION_TITLE,
+              title:
+                existingConversation?.title ??
+                ConversationTitleService.generate(userMessage.content),
               existingCreatedAt: existingConversation?.createdAt,
               previousMessages: chat.messages,
               userMessage,
@@ -134,7 +136,7 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
               assistantContent: completeAssistantResponse,
             });
 
-            ConversationStorage.save(conversation);
+            ConversationManager.save(conversation);
             break;
         }
       }
@@ -166,6 +168,10 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
     chat.messages,
   ]);
 
+  const loadConversation = useCallback((conversation: Conversation) => {
+    dispatch(ChatActions.setConversation(conversation));
+  }, []);
+
   const setSelectedProvider = useCallback((provider: string) => {
     dispatch(ChatActions.setSelectedProvider(provider));
   }, []);
@@ -183,6 +189,7 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
       clearChat,
       setSelectedProvider,
       setSelectedModel,
+      loadConversation,
     }),
     [
       chat,
@@ -192,6 +199,7 @@ export const ChatProvider = ({ children }: PropsWithChildren) => {
       clearChat,
       setSelectedProvider,
       setSelectedModel,
+      loadConversation,
     ],
   );
 
